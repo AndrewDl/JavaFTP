@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>LoginBar.fxml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(232,191,106); }
+.s1 { color: rgb(186,186,186); }
+.s2 { color: rgb(106,135,89); }
+.s3 { color: rgb(169,183,198); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+LoginBar.fxml</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<a name="l1"><span class="ln">1    </span></a><span class="s0">&lt;?</span><span class="s1">xml version=</span><span class="s2">&quot;1.0&quot; </span><span class="s1">encoding=</span><span class="s2">&quot;UTF-8&quot;</span><span class="s0">?&gt;</span><span class="s3"> 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">java.lang.*</span><span class="s0">?&gt;</span><span class="s3"> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.geometry.*</span><span class="s0">?&gt;</span><span class="s3"> 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.control.*</span><span class="s0">?&gt;</span><span class="s3"> 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.layout.*</span><span class="s0">?&gt;</span><span class="s3"> 
+<a name="l7"><span class="ln">7    </span></a> 
+<a name="l8"><span class="ln">8    </span></a></span><span class="s0">&lt;HBox </span><span class="s1">BorderPane.alignment=</span><span class="s2">&quot;CENTER&quot; </span><span class="s1">xmlns=</span><span class="s2">&quot;http://javafx.com/javafx/8&quot; </span><span class="s1">xmlns:fx=</span><span class="s2">&quot;http://javafx.com/fxml/1&quot; </span><span class="s1">fx:controller=</span><span class="s2">&quot;Controller.ControllerLogin&quot;</span><span class="s0">&gt;</span><span class="s3"> 
+<a name="l9"><span class="ln">9    </span></a>   </span><span class="s0">&lt;children&gt;</span><span class="s3"> 
+<a name="l10"><span class="ln">10   </span></a>      </span><span class="s0">&lt;Label </span><span class="s1">text=</span><span class="s2">&quot;Host:&quot;</span><span class="s0">&gt;</span><span class="s3"> 
+<a name="l11"><span class="ln">11   </span></a>         </span><span class="s0">&lt;HBox.margin&gt;</span><span class="s3"> 
+<a name="l12"><span class="ln">12   </span></a>            </span><span class="s0">&lt;Insets </span><span class="s1">top=</span><span class="s2">&quot;3.0&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l13"><span class="ln">13   </span></a>         </span><span class="s0">&lt;/HBox.margin&gt;&lt;/Label&gt;</span><span class="s3"> 
+<a name="l14"><span class="ln">14   </span></a>      </span><span class="s0">&lt;TextField </span><span class="s1">fx:id=</span><span class="s2">&quot;textFieldHost&quot; </span><span class="s1">promptText=</span><span class="s2">&quot;host address&quot; </span><span class="s1">text=</span><span class="s2">&quot;192.168.0.111&quot;</span><span class="s0">&gt;</span><span class="s3"> 
+<a name="l15"><span class="ln">15   </span></a>         </span><span class="s0">&lt;HBox.margin&gt;</span><span class="s3"> 
+<a name="l16"><span class="ln">16   </span></a>            </span><span class="s0">&lt;Insets </span><span class="s1">left=</span><span class="s2">&quot;5.0&quot; </span><span class="s1">right=</span><span class="s2">&quot;10.0&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l17"><span class="ln">17   </span></a>         </span><span class="s0">&lt;/HBox.margin&gt;</span><span class="s3"> 
+<a name="l18"><span class="ln">18   </span></a>      </span><span class="s0">&lt;/TextField&gt;</span><span class="s3"> 
+<a name="l19"><span class="ln">19   </span></a>      </span><span class="s0">&lt;Label </span><span class="s1">text=</span><span class="s2">&quot;Port:&quot;</span><span class="s0">&gt;</span><span class="s3"> 
+<a name="l20"><span class="ln">20   </span></a>         </span><span class="s0">&lt;HBox.margin&gt;</span><span class="s3"> 
+<a name="l21"><span class="ln">21   </span></a>            </span><span class="s0">&lt;Insets </span><span class="s1">top=</span><span class="s2">&quot;3.0&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l22"><span class="ln">22   </span></a>         </span><span class="s0">&lt;/HBox.margin&gt;&lt;/Label&gt;</span><span class="s3"> 
+<a name="l23"><span class="ln">23   </span></a>      </span><span class="s0">&lt;TextField </span><span class="s1">fx:id=</span><span class="s2">&quot;textFieldPort&quot; </span><span class="s1">prefWidth=</span><span class="s2">&quot;50.0&quot; </span><span class="s1">promptText=</span><span class="s2">&quot;default port is 21&quot; </span><span class="s1">text=</span><span class="s2">&quot;21&quot;</span><span class="s0">&gt;</span><span class="s3"> 
+<a name="l24"><span class="ln">24   </span></a>         </span><span class="s0">&lt;HBox.margin&gt;</span><span class="s3"> 
+<a name="l25"><span class="ln">25   </span></a>            </span><span class="s0">&lt;Insets </span><span class="s1">left=</span><span class="s2">&quot;5.0&quot; </span><span class="s1">right=</span><span class="s2">&quot;10.0&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l26"><span class="ln">26   </span></a>         </span><span class="s0">&lt;/HBox.margin&gt;</span><span class="s3"> 
+<a name="l27"><span class="ln">27   </span></a>      </span><span class="s0">&lt;/TextField&gt;</span><span class="s3"> 
+<a name="l28"><span class="ln">28   </span></a>      </span><span class="s0">&lt;Label </span><span class="s1">text=</span><span class="s2">&quot;Login:&quot;</span><span class="s0">&gt;</span><span class="s3"> 
+<a name="l29"><span class="ln">29   </span></a>         </span><span class="s0">&lt;HBox.margin&gt;</span><span class="s3"> 
+<a name="l30"><span class="ln">30   </span></a>            </span><span class="s0">&lt;Insets </span><span class="s1">top=</span><span class="s2">&quot;3.0&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l31"><span class="ln">31   </span></a>         </span><span class="s0">&lt;/HBox.margin&gt;&lt;/Label&gt;</span><span class="s3"> 
+<a name="l32"><span class="ln">32   </span></a>      </span><span class="s0">&lt;TextField </span><span class="s1">fx:id=</span><span class="s2">&quot;textFieldLogin&quot; </span><span class="s1">promptText=</span><span class="s2">&quot;username&quot; </span><span class="s1">text=</span><span class="s2">&quot;pi&quot;</span><span class="s0">&gt;</span><span class="s3"> 
+<a name="l33"><span class="ln">33   </span></a>         </span><span class="s0">&lt;HBox.margin&gt;</span><span class="s3"> 
+<a name="l34"><span class="ln">34   </span></a>            </span><span class="s0">&lt;Insets </span><span class="s1">left=</span><span class="s2">&quot;5.0&quot; </span><span class="s1">right=</span><span class="s2">&quot;10.0&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l35"><span class="ln">35   </span></a>         </span><span class="s0">&lt;/HBox.margin&gt;</span><span class="s3"> 
+<a name="l36"><span class="ln">36   </span></a>      </span><span class="s0">&lt;/TextField&gt;</span><span class="s3"> 
+<a name="l37"><span class="ln">37   </span></a>      </span><span class="s0">&lt;Label </span><span class="s1">text=</span><span class="s2">&quot;Pass:&quot;</span><span class="s0">&gt;</span><span class="s3"> 
+<a name="l38"><span class="ln">38   </span></a>         </span><span class="s0">&lt;HBox.margin&gt;</span><span class="s3"> 
+<a name="l39"><span class="ln">39   </span></a>            </span><span class="s0">&lt;Insets </span><span class="s1">top=</span><span class="s2">&quot;3.0&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l40"><span class="ln">40   </span></a>         </span><span class="s0">&lt;/HBox.margin&gt;&lt;/Label&gt;</span><span class="s3"> 
+<a name="l41"><span class="ln">41   </span></a>      </span><span class="s0">&lt;TextField </span><span class="s1">fx:id=</span><span class="s2">&quot;textFieldPassword&quot; </span><span class="s1">promptText=</span><span class="s2">&quot;password&quot; </span><span class="s1">text=</span><span class="s2">&quot;raspberry&quot;</span><span class="s0">&gt;</span><span class="s3"> 
+<a name="l42"><span class="ln">42   </span></a>         </span><span class="s0">&lt;HBox.margin&gt;</span><span class="s3"> 
+<a name="l43"><span class="ln">43   </span></a>            </span><span class="s0">&lt;Insets </span><span class="s1">left=</span><span class="s2">&quot;5.0&quot; </span><span class="s1">right=</span><span class="s2">&quot;10.0&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l44"><span class="ln">44   </span></a>         </span><span class="s0">&lt;/HBox.margin&gt;</span><span class="s3"> 
+<a name="l45"><span class="ln">45   </span></a>      </span><span class="s0">&lt;/TextField&gt;</span><span class="s3"> 
+<a name="l46"><span class="ln">46   </span></a>      </span><span class="s0">&lt;Region </span><span class="s1">HBox.hgrow=</span><span class="s2">&quot;ALWAYS&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l47"><span class="ln">47   </span></a>      </span><span class="s0">&lt;Button </span><span class="s1">mnemonicParsing=</span><span class="s2">&quot;false&quot; </span><span class="s1">onAction=</span><span class="s2">&quot;#onConnectPressed&quot; </span><span class="s1">text=</span><span class="s2">&quot;Connect&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l48"><span class="ln">48   </span></a>   </span><span class="s0">&lt;/children&gt;</span><span class="s3"> 
+<a name="l49"><span class="ln">49   </span></a>   </span><span class="s0">&lt;padding&gt;</span><span class="s3"> 
+<a name="l50"><span class="ln">50   </span></a>      </span><span class="s0">&lt;Insets </span><span class="s1">bottom=</span><span class="s2">&quot;10.0&quot; </span><span class="s1">left=</span><span class="s2">&quot;10.0&quot; </span><span class="s1">right=</span><span class="s2">&quot;10.0&quot; </span><span class="s1">top=</span><span class="s2">&quot;10.0&quot; </span><span class="s0">/&gt;</span><span class="s3"> 
+<a name="l51"><span class="ln">51   </span></a>   </span><span class="s0">&lt;/padding&gt;</span><span class="s3"> 
+<a name="l52"><span class="ln">52   </span></a></span><span class="s0">&lt;/HBox&gt;</span><span class="s3"> 
+<a name="l53"><span class="ln">53   </span></a></span></pre>
+</body>
+</html>

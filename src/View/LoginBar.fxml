@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerLogin">
+   <children>
+      <Label text="Host:">
+         <HBox.margin>
+            <Insets top="3.0" />
+         </HBox.margin></Label>
+      <TextField fx:id="textFieldHost" promptText="host address" text="192.168.0.111">
+         <HBox.margin>
+            <Insets left="5.0" right="10.0" />
+         </HBox.margin>
+      </TextField>
+      <Label text="Port:">
+         <HBox.margin>
+            <Insets top="3.0" />
+         </HBox.margin></Label>
+      <TextField fx:id="textFieldPort" prefWidth="50.0" promptText="default port is 21" text="21">
+         <HBox.margin>
+            <Insets left="5.0" right="10.0" />
+         </HBox.margin>
+      </TextField>
+      <Label text="Login:">
+         <HBox.margin>
+            <Insets top="3.0" />
+         </HBox.margin></Label>
+      <TextField fx:id="textFieldLogin" promptText="username" text="pi">
+         <HBox.margin>
+            <Insets left="5.0" right="10.0" />
+         </HBox.margin>
+      </TextField>
+      <Label text="Pass:">
+         <HBox.margin>
+            <Insets top="3.0" />
+         </HBox.margin></Label>
+      <TextField fx:id="textFieldPassword" promptText="password" text="raspberry">
+         <HBox.margin>
+            <Insets left="5.0" right="10.0" />
+         </HBox.margin>
+      </TextField>
+      <Region HBox.hgrow="ALWAYS" />
+      <Button mnemonicParsing="false" onAction="#onConnectPressed" text="Connect" />
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</HBox>

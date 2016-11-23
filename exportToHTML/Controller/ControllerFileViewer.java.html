@@ -1,0 +1,254 @@
+<html>
+<head>
+<title>ControllerFileViewer.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(204,120,50); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(98,151,85); font-style: italic; }
+.s3 { color: rgb(128,128,128); }
+.s4 { color: rgb(106,135,89); }
+.s5 { color: rgb(98,151,85); font-weight: bold; font-style: italic; }
+.s6 { color: rgb(104,151,187); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+ControllerFileViewer.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">Controller</span><span class="s0">;</span><span class="s1"> 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">javafx.beans.value.ChangeListener</span><span class="s0">;</span><span class="s1"> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">javafx.beans.value.ObservableValue</span><span class="s0">;</span><span class="s1"> 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">javafx.event.ActionEvent</span><span class="s0">;</span><span class="s1"> 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">javafx.fxml.FXML</span><span class="s0">;</span><span class="s1"> 
+<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">javafx.fxml.Initializable</span><span class="s0">;</span><span class="s1"> 
+<a name="l8"><span class="ln">8    </span></a></span><span class="s0">import </span><span class="s1">javafx.scene.Node</span><span class="s0">;</span><span class="s1"> 
+<a name="l9"><span class="ln">9    </span></a></span><span class="s0">import </span><span class="s1">javafx.scene.control.TextField</span><span class="s0">;</span><span class="s1"> 
+<a name="l10"><span class="ln">10   </span></a></span><span class="s0">import </span><span class="s1">javafx.scene.control.TreeItem</span><span class="s0">;</span><span class="s1"> 
+<a name="l11"><span class="ln">11   </span></a></span><span class="s0">import </span><span class="s1">javafx.scene.control.TreeView</span><span class="s0">;</span><span class="s1"> 
+<a name="l12"><span class="ln">12   </span></a></span><span class="s0">import </span><span class="s1">javafx.scene.image.Image</span><span class="s0">;</span><span class="s1"> 
+<a name="l13"><span class="ln">13   </span></a></span><span class="s0">import </span><span class="s1">javafx.scene.image.ImageView</span><span class="s0">;</span><span class="s1"> 
+<a name="l14"><span class="ln">14   </span></a></span><span class="s0">import </span><span class="s1">org.apache.commons.net.ftp.FTPFile</span><span class="s0">;</span><span class="s1"> 
+<a name="l15"><span class="ln">15   </span></a> 
+<a name="l16"><span class="ln">16   </span></a></span><span class="s0">import </span><span class="s1">java.io.*</span><span class="s0">;</span><span class="s1"> 
+<a name="l17"><span class="ln">17   </span></a></span><span class="s0">import </span><span class="s1">java.net.URL</span><span class="s0">;</span><span class="s1"> 
+<a name="l18"><span class="ln">18   </span></a></span><span class="s0">import </span><span class="s1">java.util.ResourceBundle</span><span class="s0">;</span><span class="s1"> 
+<a name="l19"><span class="ln">19   </span></a> 
+<a name="l20"><span class="ln">20   </span></a></span><span class="s2">/** 
+<a name="l21"><span class="ln">21   </span></a> * Клас описывает правила работы с файлами FTP сервера 
+<a name="l22"><span class="ln">22   </span></a> * Основные функции. Скачивание/Загрущка/Удаление/Переходы между директориями 
+<a name="l23"><span class="ln">23   </span></a> */</span><span class="s1"> 
+<a name="l24"><span class="ln">24   </span></a></span><span class="s0">public class </span><span class="s1">ControllerFileViewer </span><span class="s0">implements </span><span class="s1">Initializable { 
+<a name="l25"><span class="ln">25   </span></a> 
+<a name="l26"><span class="ln">26   </span></a>    </span><span class="s3">//содержит путь к директории в которую будут загружатся файлы</span><span class="s1"> 
+<a name="l27"><span class="ln">27   </span></a>    @FXML </span><span class="s0">private </span><span class="s1">TextField textFieldDownloadDirectory</span><span class="s0">;</span><span class="s1"> 
+<a name="l28"><span class="ln">28   </span></a>    </span><span class="s3">//полный путь к файлу, который нужно загрузить на сервер</span><span class="s1"> 
+<a name="l29"><span class="ln">29   </span></a>    @FXML </span><span class="s0">private </span><span class="s1">TextField textFieldUploadFilePath</span><span class="s0">;</span><span class="s1"> 
+<a name="l30"><span class="ln">30   </span></a>    </span><span class="s3">//путь файла на сервере</span><span class="s1"> 
+<a name="l31"><span class="ln">31   </span></a>    @FXML </span><span class="s0">private </span><span class="s1">TextField textFieldFilePath</span><span class="s0">;</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a> 
+<a name="l33"><span class="ln">33   </span></a>    </span><span class="s3">//визуальный елемент для отображения файлов в виде дерева</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a>    @FXML </span><span class="s0">private </span><span class="s1">TreeView&lt;String&gt; treeViewServerFiles</span><span class="s0">;</span><span class="s1"> 
+<a name="l35"><span class="ln">35   </span></a> 
+<a name="l36"><span class="ln">36   </span></a>    </span><span class="s3">//отдельная переменная для сохранения пути к директории</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a>    </span><span class="s0">private </span><span class="s1">String DirectoryPath = </span><span class="s4">&quot;&quot;</span><span class="s0">;</span><span class="s1"> 
+<a name="l38"><span class="ln">38   </span></a>    </span><span class="s3">//отдельная переменная для сохранения названия файла</span><span class="s1"> 
+<a name="l39"><span class="ln">39   </span></a>    </span><span class="s0">private </span><span class="s1">String FilePath = </span><span class="s4">&quot;&quot;</span><span class="s0">;</span><span class="s1"> 
+<a name="l40"><span class="ln">40   </span></a> 
+<a name="l41"><span class="ln">41   </span></a>    </span><span class="s0">private </span><span class="s1">Node rootIcon = </span><span class="s0">null;</span><span class="s1"> 
+<a name="l42"><span class="ln">42   </span></a>    </span><span class="s0">private </span><span class="s1">Node fileIcon = </span><span class="s0">null;</span><span class="s1"> 
+<a name="l43"><span class="ln">43   </span></a> 
+<a name="l44"><span class="ln">44   </span></a>    Controller mainController = </span><span class="s0">null;</span><span class="s1"> 
+<a name="l45"><span class="ln">45   </span></a> 
+<a name="l46"><span class="ln">46   </span></a>    </span><span class="s3">// Способ передать ссылку на клас-контроллер в главный контроллер</span><span class="s1"> 
+<a name="l47"><span class="ln">47   </span></a>    </span><span class="s3">// Создаем статичесскую переменную в которой будем хранить ссылку на созданый екземпляр контролера</span><span class="s1"> 
+<a name="l48"><span class="ln">48   </span></a>    </span><span class="s0">public static </span><span class="s1">ControllerFileViewer instance = </span><span class="s0">null;</span><span class="s1"> 
+<a name="l49"><span class="ln">49   </span></a>    </span><span class="s3">// Как только вызывается конструктор класа - &quot;запоминаем&quot; ссылку на него в статическое поле.</span><span class="s1"> 
+<a name="l50"><span class="ln">50   </span></a>    </span><span class="s3">// Таким образром мы сможем получить ссылку на этот контроллер в дальнейшем</span><span class="s1"> 
+<a name="l51"><span class="ln">51   </span></a>    </span><span class="s0">public </span><span class="s1">ControllerFileViewer(){ 
+<a name="l52"><span class="ln">52   </span></a>        instance = </span><span class="s0">this;</span><span class="s1"> 
+<a name="l53"><span class="ln">53   </span></a>    } 
+<a name="l54"><span class="ln">54   </span></a> 
+<a name="l55"><span class="ln">55   </span></a>    </span><span class="s2">/** 
+<a name="l56"><span class="ln">56   </span></a>     * Инициализируем контроллер передачей в него ссылки на главный контроллер 
+<a name="l57"><span class="ln">57   </span></a>     * </span><span class="s5">@param </span><span class="s2">controller ссылка на контроллер 
+<a name="l58"><span class="ln">58   </span></a>     */</span><span class="s1"> 
+<a name="l59"><span class="ln">59   </span></a>    </span><span class="s0">public void </span><span class="s1">init(Controller controller){ 
+<a name="l60"><span class="ln">60   </span></a>        mainController = controller</span><span class="s0">;</span><span class="s1"> 
+<a name="l61"><span class="ln">61   </span></a>    } 
+<a name="l62"><span class="ln">62   </span></a> 
+<a name="l63"><span class="ln">63   </span></a>    </span><span class="s2">/** 
+<a name="l64"><span class="ln">64   </span></a>     * Отображает список файлов как дерево 
+<a name="l65"><span class="ln">65   </span></a>     * </span><span class="s5">@param </span><span class="s2">files 
+<a name="l66"><span class="ln">66   </span></a>     */</span><span class="s1"> 
+<a name="l67"><span class="ln">67   </span></a>    </span><span class="s0">public void </span><span class="s1">showFiles(FTPFile[] files){ 
+<a name="l68"><span class="ln">68   </span></a> 
+<a name="l69"><span class="ln">69   </span></a>        TreeItem&lt;String&gt; mainRoot = </span><span class="s0">new </span><span class="s1">TreeItem&lt;String&gt; (</span><span class="s4">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l70"><span class="ln">70   </span></a>        mainRoot.setExpanded(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l71"><span class="ln">71   </span></a> 
+<a name="l72"><span class="ln">72   </span></a>        </span><span class="s0">for </span><span class="s1">(FTPFile f: files) { 
+<a name="l73"><span class="ln">73   </span></a>            </span><span class="s3">//если перед нами директория - задать ей значек папки</span><span class="s1"> 
+<a name="l74"><span class="ln">74   </span></a>            </span><span class="s0">if </span><span class="s1">(f.isDirectory()) 
+<a name="l75"><span class="ln">75   </span></a>            { 
+<a name="l76"><span class="ln">76   </span></a>                rootIcon =  </span><span class="s0">new </span><span class="s1">ImageView( 
+<a name="l77"><span class="ln">77   </span></a>                    </span><span class="s0">new </span><span class="s1">Image(getClass().getResourceAsStream(</span><span class="s4">&quot;folder.png&quot;</span><span class="s1">)) 
+<a name="l78"><span class="ln">78   </span></a>                )</span><span class="s0">;</span><span class="s1"> 
+<a name="l79"><span class="ln">79   </span></a>                TreeItem&lt;String&gt; rootItem = </span><span class="s0">new </span><span class="s1">TreeItem&lt;String&gt; (f.getName()</span><span class="s0">, </span><span class="s1">rootIcon)</span><span class="s0">;</span><span class="s1"> 
+<a name="l80"><span class="ln">80   </span></a>                rootItem.setExpanded(</span><span class="s0">false</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l81"><span class="ln">81   </span></a>                mainRoot.getChildren().add(rootItem)</span><span class="s0">;</span><span class="s1"> 
+<a name="l82"><span class="ln">82   </span></a>            } 
+<a name="l83"><span class="ln">83   </span></a>            </span><span class="s0">else </span><span class="s1">{ 
+<a name="l84"><span class="ln">84   </span></a>                fileIcon =  </span><span class="s0">new </span><span class="s1">ImageView( 
+<a name="l85"><span class="ln">85   </span></a>                        </span><span class="s0">new </span><span class="s1">Image(getClass().getResourceAsStream(</span><span class="s4">&quot;file.png&quot;</span><span class="s1">)) 
+<a name="l86"><span class="ln">86   </span></a>                )</span><span class="s0">;</span><span class="s1"> 
+<a name="l87"><span class="ln">87   </span></a>                TreeItem&lt;String&gt; item = </span><span class="s0">new </span><span class="s1">TreeItem&lt;String&gt;(f.getName()</span><span class="s0">,</span><span class="s1">fileIcon)</span><span class="s0">;</span><span class="s1"> 
+<a name="l88"><span class="ln">88   </span></a>                mainRoot.getChildren().add(item)</span><span class="s0">;</span><span class="s1"> 
+<a name="l89"><span class="ln">89   </span></a>            } 
+<a name="l90"><span class="ln">90   </span></a>        } 
+<a name="l91"><span class="ln">91   </span></a> 
+<a name="l92"><span class="ln">92   </span></a>        treeViewServerFiles.setRoot(mainRoot)</span><span class="s0">;</span><span class="s1"> 
+<a name="l93"><span class="ln">93   </span></a>    } 
+<a name="l94"><span class="ln">94   </span></a> 
+<a name="l95"><span class="ln">95   </span></a>    </span><span class="s2">/** 
+<a name="l96"><span class="ln">96   </span></a>     * Формирует путь к указаному елементу дерева 
+<a name="l97"><span class="ln">97   </span></a>     * </span><span class="s5">@param </span><span class="s2">item елемент для которого необходимо узнать путь 
+<a name="l98"><span class="ln">98   </span></a>     * </span><span class="s5">@return </span><span class="s2">путь к указаному елементу на сервере 
+<a name="l99"><span class="ln">99   </span></a>     */</span><span class="s1"> 
+<a name="l100"><span class="ln">100  </span></a>    </span><span class="s0">private </span><span class="s1">String getPath(TreeItem&lt;String&gt; item){ 
+<a name="l101"><span class="ln">101  </span></a>        String path</span><span class="s0">;</span><span class="s1"> 
+<a name="l102"><span class="ln">102  </span></a>        </span><span class="s0">if </span><span class="s1">(item != </span><span class="s0">null</span><span class="s1">) { 
+<a name="l103"><span class="ln">103  </span></a>            path = item.getValue()</span><span class="s0">;</span><span class="s1"> 
+<a name="l104"><span class="ln">104  </span></a>            </span><span class="s0">if </span><span class="s1">(item.getParent() != </span><span class="s0">null</span><span class="s1">) 
+<a name="l105"><span class="ln">105  </span></a>                path = getPath(item.getParent()) + </span><span class="s4">&quot;/&quot; </span><span class="s1">+ path</span><span class="s0">;</span><span class="s1"> 
+<a name="l106"><span class="ln">106  </span></a>        } 
+<a name="l107"><span class="ln">107  </span></a>        </span><span class="s0">else</span><span class="s1">{ 
+<a name="l108"><span class="ln">108  </span></a>            path = </span><span class="s4">&quot;&quot;</span><span class="s0">;</span><span class="s1"> 
+<a name="l109"><span class="ln">109  </span></a>        } 
+<a name="l110"><span class="ln">110  </span></a> 
+<a name="l111"><span class="ln">111  </span></a>        </span><span class="s0">return </span><span class="s1">path</span><span class="s0">;</span><span class="s1"> 
+<a name="l112"><span class="ln">112  </span></a>    } 
+<a name="l113"><span class="ln">113  </span></a> 
+<a name="l114"><span class="ln">114  </span></a>    @Override 
+<a name="l115"><span class="ln">115  </span></a>    </span><span class="s0">public void </span><span class="s1">initialize(URL location</span><span class="s0">, </span><span class="s1">ResourceBundle resources) { 
+<a name="l116"><span class="ln">116  </span></a>        treeViewServerFiles.getSelectionModel().selectedItemProperty().addListener(</span><span class="s0">new </span><span class="s1">ChangeListener&lt;TreeItem&lt;String&gt;&gt;() { 
+<a name="l117"><span class="ln">117  </span></a>            @Override 
+<a name="l118"><span class="ln">118  </span></a>            </span><span class="s0">public void </span><span class="s1">changed(ObservableValue&lt;? </span><span class="s0">extends </span><span class="s1">TreeItem&lt;String&gt;&gt; observable</span><span class="s0">, </span><span class="s1">TreeItem&lt;String&gt; oldValue</span><span class="s0">, </span><span class="s1">TreeItem&lt;String&gt; newValue) { 
+<a name="l119"><span class="ln">119  </span></a>                </span><span class="s0">if </span><span class="s1">(newValue != </span><span class="s0">null</span><span class="s1">) { 
+<a name="l120"><span class="ln">120  </span></a>                    TreeItem&lt;String&gt; selectedItem = (TreeItem&lt;String&gt;) newValue</span><span class="s0">;</span><span class="s1"> 
+<a name="l121"><span class="ln">121  </span></a> 
+<a name="l122"><span class="ln">122  </span></a>                    FilePath = selectedItem.getValue()</span><span class="s0">;</span><span class="s1"> 
+<a name="l123"><span class="ln">123  </span></a>                    textFieldFilePath.setText(DirectoryPath + getPath(selectedItem))</span><span class="s0">;</span><span class="s1"> 
+<a name="l124"><span class="ln">124  </span></a>                } 
+<a name="l125"><span class="ln">125  </span></a>            } 
+<a name="l126"><span class="ln">126  </span></a>        })</span><span class="s0">;</span><span class="s1"> 
+<a name="l127"><span class="ln">127  </span></a>    } 
+<a name="l128"><span class="ln">128  </span></a> 
+<a name="l129"><span class="ln">129  </span></a>    </span><span class="s2">/** 
+<a name="l130"><span class="ln">130  </span></a>     * Обработка нажатия кнопки &quot;вперед&quot; определяет новый путь для получения файлов, которые нужно отобразить 
+<a name="l131"><span class="ln">131  </span></a>     * </span><span class="s5">@param </span><span class="s2">actionEvent 
+<a name="l132"><span class="ln">132  </span></a>     */</span><span class="s1"> 
+<a name="l133"><span class="ln">133  </span></a>    </span><span class="s0">public void </span><span class="s1">onForwardClick(ActionEvent actionEvent) { 
+<a name="l134"><span class="ln">134  </span></a>        showFiles(mainController.getFiles(textFieldFilePath.getText()))</span><span class="s0">;</span><span class="s1"> 
+<a name="l135"><span class="ln">135  </span></a>        DirectoryPath = textFieldFilePath.getText()</span><span class="s0">; </span><span class="s3">//запоминаем текущую директорию</span><span class="s1"> 
+<a name="l136"><span class="ln">136  </span></a>    } 
+<a name="l137"><span class="ln">137  </span></a> 
+<a name="l138"><span class="ln">138  </span></a>    </span><span class="s2">/** 
+<a name="l139"><span class="ln">139  </span></a>     * Вычисляем адрес предыдущей директории 
+<a name="l140"><span class="ln">140  </span></a>     * </span><span class="s5">@param </span><span class="s2">actionEvent 
+<a name="l141"><span class="ln">141  </span></a>     */</span><span class="s1"> 
+<a name="l142"><span class="ln">142  </span></a>    </span><span class="s0">public void </span><span class="s1">onBackwardClick(ActionEvent actionEvent) { 
+<a name="l143"><span class="ln">143  </span></a> 
+<a name="l144"><span class="ln">144  </span></a>        </span><span class="s3">//разбиваем адре по по разделителю</span><span class="s1"> 
+<a name="l145"><span class="ln">145  </span></a>        String[] directories = DirectoryPath.split(</span><span class="s4">&quot;/&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l146"><span class="ln">146  </span></a> 
+<a name="l147"><span class="ln">147  </span></a>        </span><span class="s3">//новый адрес будет такой же как и старый, но нужно убрать последнюю директорию из него</span><span class="s1"> 
+<a name="l148"><span class="ln">148  </span></a>        String lastAppendedDirectory = directories[directories.length-</span><span class="s6">1</span><span class="s1">]</span><span class="s0">;</span><span class="s1"> 
+<a name="l149"><span class="ln">149  </span></a>        DirectoryPath = DirectoryPath.substring(</span><span class="s6">0</span><span class="s0">,</span><span class="s1">DirectoryPath.length() - lastAppendedDirectory.length() - </span><span class="s6">1 </span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l150"><span class="ln">150  </span></a> 
+<a name="l151"><span class="ln">151  </span></a>        </span><span class="s3">//выводим получившийся адрес</span><span class="s1"> 
+<a name="l152"><span class="ln">152  </span></a>        textFieldFilePath.setText(DirectoryPath)</span><span class="s0">;</span><span class="s1"> 
+<a name="l153"><span class="ln">153  </span></a> 
+<a name="l154"><span class="ln">154  </span></a>        </span><span class="s3">//обновляем список файов в окне</span><span class="s1"> 
+<a name="l155"><span class="ln">155  </span></a>        showFiles(mainController.getFiles(DirectoryPath))</span><span class="s0">;</span><span class="s1"> 
+<a name="l156"><span class="ln">156  </span></a>    } 
+<a name="l157"><span class="ln">157  </span></a> 
+<a name="l158"><span class="ln">158  </span></a>    </span><span class="s0">public void </span><span class="s1">onDownloadClick(ActionEvent actionEvent) { 
+<a name="l159"><span class="ln">159  </span></a> 
+<a name="l160"><span class="ln">160  </span></a>        String remoteFile = textFieldFilePath.getText()</span><span class="s0">;</span><span class="s1"> 
+<a name="l161"><span class="ln">161  </span></a>        File localFile = </span><span class="s0">new </span><span class="s1">File(textFieldDownloadDirectory.getText()+FilePath)</span><span class="s0">;</span><span class="s1"> 
+<a name="l162"><span class="ln">162  </span></a>        OutputStream outputStream = </span><span class="s0">null;</span><span class="s1"> 
+<a name="l163"><span class="ln">163  </span></a>        </span><span class="s0">boolean </span><span class="s1">success = </span><span class="s0">false;</span><span class="s1"> 
+<a name="l164"><span class="ln">164  </span></a>        </span><span class="s0">try </span><span class="s1">{ 
+<a name="l165"><span class="ln">165  </span></a>            outputStream = </span><span class="s0">new </span><span class="s1">BufferedOutputStream(</span><span class="s0">new </span><span class="s1">FileOutputStream(localFile))</span><span class="s0">;</span><span class="s1"> 
+<a name="l166"><span class="ln">166  </span></a>            success = mainController.ftpClient.retrieveFile(remoteFile</span><span class="s0">, </span><span class="s1">outputStream)</span><span class="s0">;</span><span class="s1"> 
+<a name="l167"><span class="ln">167  </span></a> 
+<a name="l168"><span class="ln">168  </span></a>            outputStream.close()</span><span class="s0">;</span><span class="s1"> 
+<a name="l169"><span class="ln">169  </span></a>        } </span><span class="s0">catch </span><span class="s1">(FileNotFoundException e) { 
+<a name="l170"><span class="ln">170  </span></a>            e.printStackTrace()</span><span class="s0">;</span><span class="s1"> 
+<a name="l171"><span class="ln">171  </span></a>        } </span><span class="s0">catch </span><span class="s1">(IOException e) { 
+<a name="l172"><span class="ln">172  </span></a>            e.printStackTrace()</span><span class="s0">;</span><span class="s1"> 
+<a name="l173"><span class="ln">173  </span></a>        } 
+<a name="l174"><span class="ln">174  </span></a> 
+<a name="l175"><span class="ln">175  </span></a>        </span><span class="s0">if </span><span class="s1">(success) { 
+<a name="l176"><span class="ln">176  </span></a>            mainController.controllerInfo.showInfo(</span><span class="s4">&quot;File has been downloaded successfully.&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l177"><span class="ln">177  </span></a>        } </span><span class="s0">else </span><span class="s1">{ 
+<a name="l178"><span class="ln">178  </span></a>            mainController.controllerInfo.showInfo(</span><span class="s4">&quot;File has not been downloaded.&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l179"><span class="ln">179  </span></a>        } 
+<a name="l180"><span class="ln">180  </span></a> 
+<a name="l181"><span class="ln">181  </span></a> 
+<a name="l182"><span class="ln">182  </span></a>        showFiles(mainController.getFiles(DirectoryPath))</span><span class="s0">;</span><span class="s1"> 
+<a name="l183"><span class="ln">183  </span></a>    } 
+<a name="l184"><span class="ln">184  </span></a> 
+<a name="l185"><span class="ln">185  </span></a>    </span><span class="s0">public void </span><span class="s1">onUploadClick(ActionEvent actionEvent) { 
+<a name="l186"><span class="ln">186  </span></a> 
+<a name="l187"><span class="ln">187  </span></a>        File firstLocalFile = </span><span class="s0">new </span><span class="s1">File(textFieldUploadFilePath.getText())</span><span class="s0">;</span><span class="s1"> 
+<a name="l188"><span class="ln">188  </span></a> 
+<a name="l189"><span class="ln">189  </span></a>        String firstRemoteFile = DirectoryPath + </span><span class="s4">&quot;/&quot; </span><span class="s1">+ firstLocalFile.getName()</span><span class="s0">;</span><span class="s1"> 
+<a name="l190"><span class="ln">190  </span></a> 
+<a name="l191"><span class="ln">191  </span></a>        mainController.controllerInfo.showInfo(</span><span class="s4">&quot;Start uploading file...&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l192"><span class="ln">192  </span></a>        </span><span class="s0">boolean </span><span class="s1">done = </span><span class="s0">false;</span><span class="s1"> 
+<a name="l193"><span class="ln">193  </span></a>        </span><span class="s0">try </span><span class="s1">{ 
+<a name="l194"><span class="ln">194  </span></a>            InputStream inputStream = </span><span class="s0">new </span><span class="s1">FileInputStream(firstLocalFile)</span><span class="s0">;</span><span class="s1"> 
+<a name="l195"><span class="ln">195  </span></a>            done = mainController.ftpClient.storeFile(firstRemoteFile</span><span class="s0">, </span><span class="s1">inputStream)</span><span class="s0">;</span><span class="s1"> 
+<a name="l196"><span class="ln">196  </span></a>            inputStream.close()</span><span class="s0">;</span><span class="s1"> 
+<a name="l197"><span class="ln">197  </span></a>        } </span><span class="s0">catch </span><span class="s1">(IOException e) { 
+<a name="l198"><span class="ln">198  </span></a>            e.printStackTrace()</span><span class="s0">;</span><span class="s1"> 
+<a name="l199"><span class="ln">199  </span></a>        } 
+<a name="l200"><span class="ln">200  </span></a> 
+<a name="l201"><span class="ln">201  </span></a>        </span><span class="s0">if </span><span class="s1">(done) { 
+<a name="l202"><span class="ln">202  </span></a>            mainController.controllerInfo.showInfo(</span><span class="s4">&quot;The file is uploaded successfully.&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l203"><span class="ln">203  </span></a>        } </span><span class="s0">else </span><span class="s1">{ 
+<a name="l204"><span class="ln">204  </span></a>            mainController.controllerInfo.showInfo(</span><span class="s4">&quot;File has not been uploaded.&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l205"><span class="ln">205  </span></a>        } 
+<a name="l206"><span class="ln">206  </span></a> 
+<a name="l207"><span class="ln">207  </span></a>        showFiles(mainController.getFiles(DirectoryPath))</span><span class="s0">;</span><span class="s1"> 
+<a name="l208"><span class="ln">208  </span></a>    } 
+<a name="l209"><span class="ln">209  </span></a> 
+<a name="l210"><span class="ln">210  </span></a>    </span><span class="s0">public void </span><span class="s1">onDeleteClick(ActionEvent actionEvent) { 
+<a name="l211"><span class="ln">211  </span></a> 
+<a name="l212"><span class="ln">212  </span></a>        </span><span class="s0">boolean </span><span class="s1">done = </span><span class="s0">false;</span><span class="s1"> 
+<a name="l213"><span class="ln">213  </span></a> 
+<a name="l214"><span class="ln">214  </span></a>        </span><span class="s0">try </span><span class="s1">{ 
+<a name="l215"><span class="ln">215  </span></a>            done = mainController.ftpClient.deleteFile(textFieldFilePath.getText())</span><span class="s0">;</span><span class="s1"> 
+<a name="l216"><span class="ln">216  </span></a>        } </span><span class="s0">catch </span><span class="s1">(IOException e) { 
+<a name="l217"><span class="ln">217  </span></a>            e.printStackTrace()</span><span class="s0">;</span><span class="s1"> 
+<a name="l218"><span class="ln">218  </span></a>        } 
+<a name="l219"><span class="ln">219  </span></a> 
+<a name="l220"><span class="ln">220  </span></a>        </span><span class="s0">if </span><span class="s1">(done) { 
+<a name="l221"><span class="ln">221  </span></a>            mainController.controllerInfo.showInfo(</span><span class="s4">&quot;The file is deleted successfully.&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l222"><span class="ln">222  </span></a>        } </span><span class="s0">else </span><span class="s1">{ 
+<a name="l223"><span class="ln">223  </span></a>            mainController.controllerInfo.showInfo(</span><span class="s4">&quot;File has not been deleted.&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+<a name="l224"><span class="ln">224  </span></a>        } 
+<a name="l225"><span class="ln">225  </span></a> 
+<a name="l226"><span class="ln">226  </span></a>        showFiles(mainController.getFiles(DirectoryPath))</span><span class="s0">;</span><span class="s1"> 
+<a name="l227"><span class="ln">227  </span></a>    } 
+<a name="l228"><span class="ln">228  </span></a>} 
+<a name="l229"><span class="ln">229  </span></a> 
+<a name="l230"><span class="ln">230  </span></a></span></pre>
+</body>
+</html>
