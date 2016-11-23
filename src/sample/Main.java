@@ -49,6 +49,7 @@ public class Main extends Application {
             return;
         }
 
+        //создем елемент всплывающего меню иконки трея
         PopupMenu trayMenu = new PopupMenu();
         MenuItem itemExit = new MenuItem("Exit");
         itemExit.addActionListener(new ActionListener() {
@@ -57,10 +58,12 @@ public class Main extends Application {
                 System.exit(0);
             }
         });
+
+        //добавляем созданый элемент в меню
         trayMenu.add(itemExit);
 
+        //устанавливаем иконку
         URL imageURL = Main.class.getResource("file.png");
-
 
         Image icon = Toolkit.getDefaultToolkit().getImage(imageURL);
         TrayIcon trayIcon = new TrayIcon(icon, "JavaFTP", trayMenu);
@@ -72,7 +75,6 @@ public class Main extends Application {
         } catch (AWTException e) {
             e.printStackTrace();
         }
-
 
         trayIcon.displayMessage("JavaFTP", "Application started!", TrayIcon.MessageType.INFO);
     }
