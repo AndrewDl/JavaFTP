@@ -6,6 +6,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -71,6 +72,7 @@ public class Controller implements Initializable {
                 controllerInfo.showInfo("Operation failed. Server reply code: " + replyCode);
                 return;
             }
+            ftpClient.enterLocalActiveMode();
             boolean success = ftpClient.login(Login, Password);
             showServerReply(ftpClient);
             if (!success) {

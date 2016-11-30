@@ -11,7 +11,7 @@
          <HBox.margin>
             <Insets top="3.0" />
          </HBox.margin></Label>
-      <TextField fx:id="textFieldHost" promptText="host address" text="192.168.0.111">
+      <TextField fx:id="textFieldHost" promptText="host address" text="176.104.45.235">
          <HBox.margin>
             <Insets left="5.0" right="10.0" />
          </HBox.margin>
