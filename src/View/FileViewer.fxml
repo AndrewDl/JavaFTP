@@ -21,43 +21,65 @@
          </padding>
       </HBox>
       <TreeView fx:id="treeViewServerFiles" prefWidth="800.0" />
-      <HBox spacing="5.0">
+      <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onForwardClick" text="Forward" />
-            <Button mnemonicParsing="false" onAction="#onBackwardClick" text="Backward" />
-            <Button mnemonicParsing="false" onAction="#onDeleteClick" text="Delete" />
+            <VBox spacing="10.0">
+               <children>
+                  <Button minWidth="100.0" mnemonicParsing="false" onAction="#onForwardClick" text="Forward" />
+                  <Button minWidth="100.0" mnemonicParsing="false" onAction="#onBackwardClick" text="Backward" />
+                  <Button minWidth="100.0" mnemonicParsing="false" onAction="#onDeleteClick" text="Delete" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+            <VBox>
+               <children>
+                  <HBox spacing="5.0">
+                     <children>
+                        <Label text="Directory: ">
+                           <HBox.margin>
+                              <Insets right="16.0" top="3.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="textFieldDownloadDirectory" prefHeight="25.0" prefWidth="325.0" promptText="enter directory to download in" text="D:/" />
+                        <Button mnemonicParsing="false" onAction="#onDownloadClick" prefWidth="100.0" text="Download" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox spacing="5.0">
+                     <children>
+                        <Label text="Full file path: ">
+                           <HBox.margin>
+                              <Insets top="3.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="textFieldUploadFilePath" prefHeight="25.0" prefWidth="325.0" promptText="enter file path to upload e.g. &quot;D:\file.txt&quot;" />
+                        <Button mnemonicParsing="false" onAction="#onUploadClick" prefWidth="100.0" text="Upload" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox spacing="5.0">
+                     <children>
+                        <Label text="New Directory Name:">
+                           <HBox.margin>
+                              <Insets top="3.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="textFieldNewDirectoryName" prefHeight="25.0" prefWidth="281.0" promptText="enter name of directory to add" text="NewDirectory" />
+                        <Button mnemonicParsing="false" onAction="#onAddDirectoryClick" prefWidth="100.0" text="Add" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
-      <HBox spacing="5.0">
-         <children>
-            <Label text="Directory: ">
-               <HBox.margin>
-                  <Insets right="16.0" top="3.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="textFieldDownloadDirectory" prefHeight="25.0" prefWidth="325.0" promptText="enter directory to download in" text="D:/" />
-            <Button mnemonicParsing="false" onAction="#onDownloadClick" prefWidth="100.0" text="Download" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
-      <HBox spacing="5.0">
-         <children>
-            <Label text="Full file path: ">
-               <HBox.margin>
-                  <Insets top="3.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="textFieldUploadFilePath" prefHeight="25.0" prefWidth="325.0" promptText="enter file path to upload e.g. &quot;D:\file.txt&quot;" />
-            <Button mnemonicParsing="false" onAction="#onUploadClick" prefWidth="100.0" text="Upload" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
       </HBox>
    </children>
 </VBox>

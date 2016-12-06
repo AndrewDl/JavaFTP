@@ -29,6 +29,8 @@ public class ControllerFileViewer implements Initializable {
     @FXML private TextField textFieldUploadFilePath;
     //путь файла на сервере
     @FXML private TextField textFieldFilePath;
+    //имя новой директории для добавления
+    @FXML private TextField textFieldNewDirectoryName;
 
     //визуальный елемент для отображения файлов в виде дерева
     @FXML private TreeView<String> treeViewServerFiles;
@@ -213,14 +215,36 @@ public class ControllerFileViewer implements Initializable {
 
         try {
             done = mainController.ftpClient.deleteFile(textFieldFilePath.getText());
+            done = mainController.ftpClient.removeDirectory(textFieldFilePath.getText());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         if (done) {
-            mainController.controllerInfo.showInfo("The file is deleted successfully.");
+            mainController.controllerInfo.showInfo("The file or directory is deleted successfully.");
         } else {
-            mainController.controllerInfo.showInfo("File has not been deleted.");
+            mainController.controllerInfo.showInfo("File has or directory not been deleted.");
+        }
+
+        showFiles(mainController.getFiles(DirectoryPath));
+    }
+
+    public void onAddDirectoryClick(ActionEvent actionEvent) {
+
+        boolean done = false;
+
+        String newDirectoryName = textFieldNewDirectoryName.getText();
+
+        try {
+            done = mainController.ftpClient.makeDirectory(DirectoryPath + "/" + newDirectoryName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (done) {
+            mainController.controllerInfo.showInfo("Directory Added.");
+        } else {
+            mainController.controllerInfo.showInfo("Directory not added.");
         }
 
         showFiles(mainController.getFiles(DirectoryPath));
